@@ -1,9 +1,15 @@
 const express = require("express");
-const app = express();
-const bcrypt = require('bcryptjs');
-const jwt = require("jsonwebtoken");
+const router = express.Router();
 const users = require("../models/users");
-app.post('/register',async (req,res) =>
+const auth  = require("../middleware/auth");
+
+
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+
+
+router.post('/register', async (req,res) =>
 {
     const username  = req.body.username;
     const password = req.body.password;
@@ -18,7 +24,7 @@ app.post('/register',async (req,res) =>
 })
 
 
-app.post('/login', async (req,res) =>
+router.post('/login', async (req,res) =>
 {
     const username  = req.body.username;
     const password = req.body.password;
@@ -35,11 +41,17 @@ app.post('/login', async (req,res) =>
     else
     {
         const token = jwt.sign(
-            { id : username._id},
+            { id : UserToCheck._id},
             "secretkey",
             {expiresIn : "1h"}
         );
-        res.json({token});
+        res.cookie("token",token,
+            {
+                httpOnly : true,
+                maxAge : 3600000
+            }
+        );
+        res.json({"message" : "Login successful."})
     }
     // const passwordToCheck = UserToCheck.password;
     // if(passwordToCheck === password)
@@ -51,3 +63,6 @@ app.post('/login', async (req,res) =>
     //     return res.status(404).json({"message" : "Wrong password or username. Try again."});
     // }
 }) 
+
+
+module.exports = router;

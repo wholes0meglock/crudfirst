@@ -1,26 +1,16 @@
 const express = require("express");
 const router = express.Router();
-let sessions = [];
 const Session = require("../models/Session");
 
-// app.get('/', (req,res)=>
-// {
-//     res.send("Get request was successful.");
-// })
-// app.listen(port, () =>
-// {
-//     console.log("Example app listening.");
-// }
-// )
+const auth  = require("../middleware/auth");
 
-
-router.get('/', async (req,res) =>
+router.get('/',auth, async (req,res) =>
 {
     const sessions = await Session.find();
     res.json(sessions);
 })
 
-router.post('/', async (req,res) =>
+router.post('/',auth, async (req,res) =>
 {
     const subject = req.body.subject;
     const duration = req.body.duration;
@@ -31,7 +21,7 @@ router.post('/', async (req,res) =>
     res.json(newSession); 
 })
 
-router.get('/:id', async (req,res) =>
+router.get('/:id',auth, async (req,res) =>
 {
     const session = await Session.findById(req.params.id);
     if(!session) 
@@ -45,7 +35,7 @@ router.get('/:id', async (req,res) =>
     // res.json(session)
 })
 
-router.put('/:id', async (req,res)=>
+router.put('/:id',auth, async (req,res)=>
 {
     const session = await Session.findById(req.params.id);
     if(!session) { return res.status(404).json({"message" : "session not found"}); }
@@ -57,7 +47,7 @@ router.put('/:id', async (req,res)=>
 
 
 
-router.delete('/:id',async (req,res) =>
+router.delete('/:id',auth,async (req,res) =>
 {
     const session = await Session.findByIdAndDelete(req.params.id);
     if(!session) {return res.status(404).json({"message" : "Session not found."})}
