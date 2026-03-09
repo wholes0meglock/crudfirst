@@ -12,6 +12,11 @@ const jwt = require("jsonwebtoken");
 router.post('/register', async (req,res) =>
 {
     const username  = req.body.username;
+    const UserToCheck = await users.findOne({username: username});
+    if(UserToCheck)
+    {
+        return res.status(200).json({"message" : "this username is already taken."});
+    }
     const password = req.body.password;
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await users.create(
@@ -31,7 +36,7 @@ router.post('/login', async (req,res) =>
     const UserToCheck = await users.findOne({username: username});
     if(!UserToCheck)
     {
-        return res.status(404).json({"message" : "User not found. Try again."});
+        return res.status(200).json({"message" : "User not found. Try again."});
     }
     const match = await bcrypt.compare(password, UserToCheck.password);
     if(!match)
