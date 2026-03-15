@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 const SessionSchema = new mongoose.Schema(
     {
-        subject: String,
-        duration: Number
+        user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    subject: String,
+    duration: Number
     }
 );
 
