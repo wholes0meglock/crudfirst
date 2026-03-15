@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/api";
-function userLogin()
+
+function UserLogin()
 {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -45,4 +46,4 @@ function userLogin()
     );
 }
 
-export default userLogin;
+export default UserLogin;
