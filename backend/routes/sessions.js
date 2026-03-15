@@ -15,6 +15,9 @@ router.post('/',auth, async (req,res) =>
     const username = req.user.id;
     const subject = req.body.subject;
     const duration = req.body.duration;
+    if (!subject || !duration) {
+    return res.status(400).json({ error: "Missing fields" });
+    }
     const newSession = await Session.create({
         username,
         subject,
