@@ -8,10 +8,14 @@ mongoose.connect(process.env.MONGO_URL).then(() => console.log("mongo connected"
 
 const userRoutes = require("./routes/auth");
 const sessionRoutes = require("./routes/sessions");
-
+const cors = require("cors");
 
 
 app.use(cookieParser());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 app.use((req, res, next) => {
     let date = new Date();
     console.log(`${req.method} ${req.url} ${date}`);
