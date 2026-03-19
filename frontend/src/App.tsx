@@ -3,6 +3,7 @@ import './App.css';
 import UserLogin from './pages/Login';
 import UserRegister from './pages/Register';
 import Landing from "./pages/Landing";
+import SessionCard from "./pages/SessionCard";
 function App() {
 
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegister />} />
+        <Route path="/session/:id" element={<SessionCard />} />
       </Routes>
     </div>
   )
