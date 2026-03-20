@@ -40,7 +40,6 @@ function SessionCard()
         </div>
        </div>
     )
-
 }
 
 
