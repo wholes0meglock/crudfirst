@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 // import { updateSession } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
 
 
 type Session = {
@@ -18,6 +17,7 @@ function SessionCard()
 {
     const [session,setSession] = useState<Session | null>(null);
     const { id } = useParams<{id : string}>();
+    const navigate = useNavigate();
     // if (!id) {
     //    return <Navigate to="/dashboard" />;
     //     }

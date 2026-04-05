@@ -15,6 +15,7 @@ function App() {
         <Route path="/register" element={<UserRegister />} />
         <Route path="/session/:id" element={<SessionCard />} />
       </Routes>
+      
     </div>
   )
 }
