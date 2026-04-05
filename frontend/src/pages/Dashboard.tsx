@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSessions } from "../services/api";
-import { Routes, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import  CreateSession  from "../pages/CreateSession";
 type Session = {
   _id: string;

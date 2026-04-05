@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { createSession } from "../services/api";
-type Session = 
-{
-    _id : string,
-    subject : string,
-    duration : string
-}
+// type Session = 
+// {
+//     _id : string,
+//     subject : string,
+//     duration : string
+// }
 function CreateSession()
 {
     const [subject,setSubject] = useState("");

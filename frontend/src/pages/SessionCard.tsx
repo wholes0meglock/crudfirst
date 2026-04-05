@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getSessionByID } from "../services/api";
 import { useParams } from "react-router-dom";
-import { updateSession } from "../services/api";
+// import { updateSession } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 const navigate = useNavigate();
