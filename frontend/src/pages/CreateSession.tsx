@@ -42,8 +42,7 @@ function CreateSession()
         />
 
         <button type="submit">Create</button>
-            </form>
-            
+        </form>
         {session && (
         <div>
           <h3>Session created:</h3>

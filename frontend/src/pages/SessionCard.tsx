@@ -1,17 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getSessionByID } from "../services/api";
 import { useParams } from "react-router-dom";
+import { updateSession } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
-type ParamsType = {
-  id: string;
-};
+const navigate = useNavigate();
+
+
 type Session = {
   _id: string;
   subject: string;
   duration: number;
 };
+
 function SessionCard()
 {
     const [session,setSession] = useState<Session | null>(null);
@@ -37,6 +39,8 @@ function SessionCard()
         <h2> Session details </h2>
         <div key={session._id}>
             {session.subject} - {session.duration}
+
+            <button onClick={() => navigate(`/edit/${session._id}`)}>Edit</button>
         </div>
        </div>
     )
