@@ -7,6 +7,23 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
+router.get("/me", async (req,res) =>
+{
+    const token = req.cookies.token;
+    if(!token)
+    {
+        return res.status(401).json({"message":"User not found. Log in again."})
+    }
+    try
+    {
+        const user = jwt.verify(token, process.env.JWT_SECRET);
+        res.json({user});
+    }
+    catch(e)
+    {
+        res.status(401).json({"message":"Invalid token."});
+    }
+})
 
 router.post('/register', async (req,res) =>
 {
@@ -52,7 +69,9 @@ router.post('/login', async (req,res) =>
         res.cookie("token",token,
             {
                 httpOnly : true,
-                maxAge : 3600000
+                maxAge : 3600000,
+                sameSite: "lax", 
+                secure: false
             }
         );
         res.json({"message" : "Login successful."})

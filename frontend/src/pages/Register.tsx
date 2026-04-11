@@ -21,9 +21,9 @@ function UserRegister()
         }
     }
     return (
-        <div>
-            <h2> Register </h2>
-            <form onSubmit={handleSubmit}>
+        <div className="min-h-screen flex flex-col justify-center items-center">
+            <h3 className="absolute top-10 left-100"> Register  </h3>
+            <form onSubmit={handleSubmit} className="flex flex-col p-4 gap-4 justify-center border rounded-lg">
                 <input
                 type = "text"
                 placeholder = "Username"
@@ -37,8 +37,8 @@ function UserRegister()
                 onChange = {(e) => setPassword(e.target.value)}
                 />
                 <button
-                    type = "submit">
-                    Register
+                    type = "submit" className="p-1 border rounded-xl hover:bg-red-500 hover:text-black transition">
+                    Submit
                 </button>
             </form>
         </div>

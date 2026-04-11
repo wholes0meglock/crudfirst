@@ -22,10 +22,10 @@ function UserLogin()
 
     }
     return (
-        <div>
-            <h2>Login</h2>
+        <div className="min-h-screen flex justify-center flex-col items-center">
+            <h3 className="absolute top-10 left-100">Login</h3>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 border p-4 rounded-lg">
                 <input
                     type="text"
                     placeholder="Username"
@@ -40,7 +40,7 @@ function UserLogin()
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button type="submit">Login</button>
+                <button type="submit" className="p-1 border rounded-xl hover:bg-yellow-500 hover:text-black transition">Submit</button>
             </form>
         </div>
     );

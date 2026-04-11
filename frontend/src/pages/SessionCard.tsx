@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 // import { updateSession } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
-
+import { deleteSession } from "../services/api";
 
 type Session = {
   _id: string;
@@ -30,7 +30,18 @@ function SessionCard()
         }
         loadSessionCard();
     },[]);
-    
+    const handleDelete = async () =>
+    {
+        if(!id) return;
+        if (!window.confirm("Are you sure you want to delete this session?")) return;
+        try{
+            await deleteSession(id);
+            navigate("/dashboard");
+        }
+        catch (e) {
+      console.error("Delete failed", e);
+    }
+    };
     if(!session)
     return <div> Loading... </div> ;
 
@@ -41,10 +52,13 @@ function SessionCard()
             {session.subject} - {session.duration}
 
             <button onClick={() => navigate(`/edit/${session._id}`)}>Edit</button>
+
+            <button onClick={handleDelete}>Delete</button>
         </div>
        </div>
     )
 }
+
 
 
 export default SessionCard;

@@ -1,22 +1,34 @@
 import { useState } from "react"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSessions } from "../services/api";
+import { getCurrentUser, getSessions } from "../services/api";
 import { Route } from "react-router-dom";
-import  CreateSession  from "../pages/CreateSession";
+// import  CreateSession  from "../pages/CreateSession";
 type Session = {
   _id: string;
   subject: string;
   duration: number;
 };
-const navigate = useNavigate();
 
-function handleClick(id: string) {
-  navigate(`/session/${id}`);
-}
+
 function Dashboard()
 {
+    const navigate = useNavigate();
     const [sessions,setSessions] = useState<Session[]>([]); //useState<Type>(initialValue)
+    const handleClick = (id: string) => {
+    navigate(`/session/${id}`);
+    };
+    // const [loading, setLoading] = useState(true);
+    // useEffect(()=>
+    //     {
+    //         getCurrentUser().then((data) =>
+    //         {
+    //             setLoading(false);
+    //         }).catch(() =>
+    //         {
+    //             navigate("/login");
+    //         });
+    //     },[]);
     useEffect(() =>
     {
         async function loadSessions()
@@ -42,10 +54,7 @@ function Dashboard()
                   {session.subject} - {session.duration}
               </div>
           ))}
-          /* <div>
-            <Route path= "/create" element={<CreateSession />}/>
-
-          </div> */
+           <button onClick={() =>navigate("/dashboard/create") }>Create a session</button>
         </div>
     );
 }

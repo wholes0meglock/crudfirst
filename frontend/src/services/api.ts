@@ -4,6 +4,20 @@ type SessionData = {
     subject: string
     duration: number
 }
+export async function getCurrentUser()
+{
+    const response = await fetch(`${API_URL}/auth/me`,
+        {
+            method:"GET",
+            credentials:"include"
+        }
+    );
+    if(!response.ok)
+    {
+        throw new Error("Not Authenticated");
+    }
+    return response.json();
+}
 
 export async function login(username : string, password : string)
 {
@@ -40,14 +54,15 @@ export async function getSessions()
     const response = await fetch(`${API_URL}/sessions`,
         {
             method: "GET",
-            headers:
-            {
-                "Content-Type": "application/json"
-            },
             credentials : "include"        
         }
     );
-    return response.json();
+    if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to fetch sessions");
+  }
+
+  return response.json();
 }
 export async function getSessionByID(id : string)
 {

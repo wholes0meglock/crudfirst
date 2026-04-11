@@ -12,6 +12,7 @@ router.get('/',auth, async (req,res) =>
 
 router.post('/',auth, async (req,res) =>
 {
+    console.log(req);
     const username = req.user.id;
     const subject = req.body.subject;
     const duration = req.body.duration;

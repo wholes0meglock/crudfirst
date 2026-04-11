@@ -4,16 +4,19 @@ import UserLogin from './pages/Login';
 import UserRegister from './pages/Register';
 import Landing from "./pages/Landing";
 import SessionCard from "./pages/SessionCard";
+import CreateSession from "./pages/CreateSession";
+import Dashboard from "./pages/Dashboard";
 function App() {
 
   return (
     <div>
-      <h2> Study Tracker </h2>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/session/:id" element={<SessionCard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/create" element={<CreateSession />} />
       </Routes>
       
     </div>
