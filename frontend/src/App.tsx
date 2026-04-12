@@ -6,6 +6,7 @@ import Landing from "./pages/Landing";
 import SessionCard from "./pages/SessionCard";
 import CreateSession from "./pages/CreateSession";
 import Dashboard from "./pages/Dashboard";
+import EditSession from "./pages/EditSession";
 function App() {
 
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/session/:id" element={<SessionCard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/create" element={<CreateSession />} />
+        <Route path="/dashboard/edit/:id" element={<EditSession />} />
       </Routes>
       
     </div>

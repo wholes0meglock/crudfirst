@@ -24,6 +24,7 @@ export async function login(username : string, password : string)
     const response = await fetch(`${API_URL}/auth/login`,
         {
             method: "POST",
+            credentials:"include",
             headers:
             {
                 "Content-Type": "application/json"
@@ -38,6 +39,7 @@ export async function register(username : string, password : string)
     const response = await fetch(`${API_URL}/auth/register`,
         {
             method: "POST",
+            credentials:"include",
             headers:
             {
                 "Content-Type": "application/json"

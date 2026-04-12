@@ -32,7 +32,7 @@ function EditSession()
             setSession(data);
             setSubject(data.subject);
             setDuration(data.duration);
-
+            console.log("success-1")
         }
         loadSessionCard();
     },[id]);
@@ -45,7 +45,9 @@ function EditSession()
             subject,
             duration
         }
+        console.log("success-2")
         await updateSession(id, updatedData);
+        console.log("success-3")
     }
 
     if(!session)

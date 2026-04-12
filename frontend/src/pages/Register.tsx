@@ -13,7 +13,7 @@ function UserRegister()
         try
         {
             const response = await register(username, password);
-            navigate("/dashboard");
+            navigate("/login");
         }
         catch(error)
         {

@@ -45,10 +45,18 @@ function Dashboard()
         }
         loadSessions();
     },[]);
-
+    console.log(sessions);
     return (
         <div>
             <h2> Dashboard </h2>
+            {/* <div>
+               <button onClick={sessions.map(session => (
+              <div key={session._id} onClick={() => handleClick(session._id)}>
+                  {session.subject} - {session.duration}
+              </div>
+          ))}>Show all sessions</button> 
+            </div> */}
+
             {sessions.map(session => (
               <div key={session._id} onClick={() => handleClick(session._id)}>
                   {session.subject} - {session.duration}
