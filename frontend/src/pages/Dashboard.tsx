@@ -33,7 +33,8 @@ function Dashboard()
             }
             catch(err)
             {
-                navigate("/login");
+                console.log("error caught gng");
+                // navigate("/login");
             }
         }
         init();
@@ -43,18 +44,25 @@ function Dashboard()
         return <div>Loading...</div>;
     }
     return (
-        <div>
-            <h2> Dashboard </h2>
-            {sessions.map(session => (
-              <div key={session._id} onClick={() => handleClick(session._id)}>
+        <div className="min-h-screen flex justify-center flex-col items-center">
+            <h2 className="absolute top-10 left-100"> Dashboard </h2>
+
+            <div className="flex flex-row">
+                {sessions.map(session => (
+              <div key={session._id} onClick={() => handleClick(session._id)} className="bg-gray-800 p-3 rounded cursor-pointer hover:bg-gray-700 transition mr-2">
                   {session.subject} - {session.duration}
               </div>
           ))}
-           <button onClick={() =>navigate("/dashboard/create") }>Create a session</button>
+            </div>
+            
+           <button onClick={() =>navigate("/dashboard/create")} className="bg-gray-800 p-3 mt-5 rounded cursor-pointer hover:bg-gray-700 transition">Create a session</button>
+
+
+
            <button onClick={async () => {
            await logout();
            navigate("/login");
-           }}>
+           }} className="mt-4 bg-gray-800 p-2 mt-5 rounded cursor-pointer hover:bg-gray-700 transition">
            Logout
            </button>
         </div>

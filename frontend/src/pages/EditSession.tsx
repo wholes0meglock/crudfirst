@@ -54,16 +54,19 @@ function EditSession()
     return <div> Loading... </div> ;
 
     return (
-        <div>
+        <div className="min-h-screen flex justify-center flex-col items-center">
+            <h3 className="absolute top-10 left-100">Update session</h3>
             <input 
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
+            className="border p-2 rounded bg-gray-800 text-white outline-none"
             />
             <input 
             value = {duration}
             onChange={(e) => setDuration(Number(e.target.value))}
+            className="border p-2 mt-2 rounded bg-gray-800 text-white outline-none"
             />
-            <button onClick={updateSessionCard} >Update</button>
+            <button onClick={updateSessionCard} className="mt-6 p-1 border rounded-xl hover:bg-yellow-500 hover:text-black transition">Update</button>
         </div>
     )
 

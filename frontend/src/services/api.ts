@@ -87,7 +87,6 @@ export async function getSessionByID(id : string)
 }
 export async function createSession(data: SessionData)
 {
-    // const token = localStorage.getItem("token");
     const response = await fetch(`${API_URL}/sessions`,
         {
             method: "POST",
