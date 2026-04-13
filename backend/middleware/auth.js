@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 
-let middleAuth = (req,res,next) =>
+let auth = (req,res,next) =>
 {
-    console.log(req);
     const token = req.cookies.token;
+    console.log(token);
     if(!token)
     {
         return res.status(401).json({message: "No token"});
@@ -21,4 +21,4 @@ let middleAuth = (req,res,next) =>
 }
 
 
-module.exports = middleAuth;
+module.exports = auth;

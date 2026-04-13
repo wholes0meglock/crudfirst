@@ -18,7 +18,12 @@ export async function getCurrentUser()
     }
     return response.json();
 }
-
+export async function logout() {
+    await fetch("/auth/logout", {
+        method: "POST",
+        credentials: "include"
+    });
+}
 export async function login(username : string, password : string)
 {
     const response = await fetch(`${API_URL}/auth/login`,
@@ -98,7 +103,6 @@ export async function createSession(data: SessionData)
 }
 export async function updateSession(id : string, data : SessionData)
 {
-    // const token = localStorage.getItem("token");
     const response = await fetch(`${API_URL}/sessions/${id}`,
         {
             method: "PUT",

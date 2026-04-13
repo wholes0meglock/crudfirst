@@ -16,7 +16,7 @@ router.get("/me", async (req,res) =>
     }
     try
     {
-        const user = jwt.verify(token, process.env.JWT_SECRET);
+        const user = jwt.verify(token, "secretkey");
         res.json({user});
     }
     catch(e)
@@ -44,7 +44,15 @@ router.post('/register', async (req,res) =>
     res.json(newUser);
 })
 
-
+router.post('/logout',async(req,res) =>
+{
+    res.clearCookie("token",{
+        httpOnly: true,
+        sameSite: "Lax",
+        secure: false
+    });
+    res.json({"message" : "Logged out."});
+})
 router.post('/login', async (req,res) =>
 {
     const username  = req.body.username;
@@ -69,7 +77,7 @@ router.post('/login', async (req,res) =>
         res.cookie("token",token,
             {
                 httpOnly : true,
-                maxAge : 3600000,
+                maxAge : 3600,
                 sameSite: "lax", 
                 secure: false
             }
