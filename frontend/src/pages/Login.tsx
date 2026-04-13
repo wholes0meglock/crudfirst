@@ -5,6 +5,7 @@ import { login } from "../services/api";
 function UserLogin()
 {
     const [username, setUsername] = useState("");
+    const [error,setError] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     async function handleSubmit(e : React.FormEvent)
@@ -12,12 +13,19 @@ function UserLogin()
         e.preventDefault();
         try
         {
-            const data = await login(username,password);
+            const {response, data} = await login(username,password);
+            if(!response.ok)
+            {
+                setError(data.message);
+                return;
+            }
+            setError("");
             navigate("/dashboard");
         }
         catch(error)
         {
             console.error("Login failed ", error);
+            setError("Something went wrong");
         }
 
     }
@@ -41,6 +49,7 @@ function UserLogin()
                 />
 
                 <button type="submit" className="p-1 border rounded-xl hover:bg-yellow-500 hover:text-black transition">Submit</button>
+                {error && <p className="text-red-500 mt-2">{error}</p>}
             </form>
         </div>
     );

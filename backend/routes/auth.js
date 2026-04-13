@@ -31,7 +31,7 @@ router.post('/register', async (req,res) =>
     const UserToCheck = await users.findOne({username: username});
     if(UserToCheck)
     {
-        return res.status(200).json({"message" : "this username is already taken."});
+        return res.status(409).json({"message" : "this username is already taken."});
     }
     const password = req.body.password;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -61,12 +61,12 @@ router.post('/login', async (req,res) =>
     const UserToCheck = await users.findOne({username: username});
     if(!UserToCheck)
     {
-        return res.status(200).json({"message" : "User not found. Try again."});
+        return res.status(409).json({"message" : "User not found. Try again."});
     }
     const match = await bcrypt.compare(password, UserToCheck.password);
     if(!match)
     {
-        return res.json({message: "incorrect password or username, try again."});
+        return res.status(409).json({"message": "incorrect password or username, try again."});
     }
     else
     {
@@ -84,7 +84,7 @@ router.post('/login', async (req,res) =>
                 path: "/"
             }
         );
-        res.json({"message" : "Login successful."})
+        res.status(200).json({"message" : "Login successful."})
     }
     // const passwordToCheck = UserToCheck.password;
     // if(passwordToCheck === password)

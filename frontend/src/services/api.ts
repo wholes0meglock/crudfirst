@@ -37,7 +37,8 @@ export async function login(username : string, password : string)
             body: JSON.stringify({username, password})
         }
     );
-    return response.json();
+    const data = await response.json();
+    return {response,data};
 }
 export async function register(username : string, password : string)
 {
@@ -52,7 +53,8 @@ export async function register(username : string, password : string)
             body: JSON.stringify({username, password})
         }
     );
-    return response.json();
+    const data = await response.json();
+    return{ response, data };
 }
 
 export async function getSessions()
