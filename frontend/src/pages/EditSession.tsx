@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getSessionByID, updateSession } from "../services/api";
+import { getCurrentUser, getSessionByID, updateSession } from "../services/api";
 import { useParams } from "react-router-dom";
 
 
@@ -19,23 +19,54 @@ function EditSession()
     const [subject, setSubject] = useState("");
     const [duration, setDuration] = useState(0);
     const navigate = useNavigate();
-
+    const [loading,setLoading] = useState(true);
     useEffect(() =>
     {
-        async function loadSessionCard()
+        async function userCheckAndLoadSessionCard()
         {
-            if (!id) {
-            navigate("/");
-            return;
+            try
+            {
+                await getCurrentUser();
+                if(!id)
+                {
+                    navigate("/login");
+                    return;
+                }
+                const data = await getSessionByID(id);
+                setSession(data);
+                setSubject(data.subject);
+                setDuration(data.duration);
+                // setLoading(false);
+            }
+            catch(err)
+            {
+                // setLoading(false);
+                navigate("/login");
+                return;
+            }
+            finally{
+                setLoading(false);
+            }
         }
-            const data = await getSessionByID(id); //a bit risky with the !
-            setSession(data);
-            setSubject(data.subject);
-            setDuration(data.duration);
-            console.log("success-1")
-        }
-        loadSessionCard();
+        userCheckAndLoadSessionCard();
     },[id]);
+
+    // useEffect(() =>
+    // {
+    //     async function loadSessionCard()
+    //     {
+    //         if (!id) {
+    //         navigate("/");
+    //         return;
+    //     }
+    //         const data = await getSessionByID(id); //a bit risky with the !
+    //         setSession(data);
+    //         setSubject(data.subject);
+    //         setDuration(data.duration);
+    //         // console.log("success-1")
+    //     }
+    //     loadSessionCard();
+    // },[id]);
 
     const updateSessionCard = async () =>
     {
@@ -50,7 +81,7 @@ function EditSession()
         console.log("success-3")
     }
 
-    if(!session)
+    if(loading)
     return <div> Loading... </div> ;
 
     return (

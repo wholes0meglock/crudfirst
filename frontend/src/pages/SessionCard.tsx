@@ -1,6 +1,6 @@
     import { useEffect } from "react";
     import { useState } from "react";
-    import { getSessionByID } from "../services/api";
+    import { getCurrentUser, getSessionByID } from "../services/api";
     import { useParams } from "react-router-dom";
     // import { updateSession } from "../services/api";
     import { useNavigate } from "react-router-dom";
@@ -18,18 +18,38 @@
         const [session,setSession] = useState<Session | null>(null);
         const { id } = useParams<{id : string}>();
         const navigate = useNavigate();
+        const [loading,setLoading] = useState(true);
         // if (!id) {
         //    return <Navigate to="/dashboard" />;
         //     }
-        useEffect(() =>
+        useEffect(()=>
         {
-            async function loadSessionCard()
+            async function getUserAndLoadSessionCard()
             {
-                const data = await getSessionByID(id!); //a bit risky with the !
-                setSession(data);
+                try{
+                    await getCurrentUser();
+                    const data = await getSessionByID(id!);
+                    setSession(data);
+                }
+                catch(err)
+                {
+                    navigate("/login");
+                }
+                finally{
+                    setLoading(false);
+                }
             }
-            loadSessionCard();
-        },[]);
+            getUserAndLoadSessionCard();
+        },[])
+        // useEffect(() =>
+        // {
+        //     async function loadSessionCard()
+        //     {
+        //         const data = await getSessionByID(id!); //a bit risky with the !
+        //         setSession(data);
+        //     }
+        //     loadSessionCard();
+        // },[]);
         const handleDelete = async () =>
         {
             if(!id) return;

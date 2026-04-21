@@ -34,7 +34,7 @@ function Dashboard()
             catch(err)
             {
                 console.log("error caught gng");
-                // navigate("/login");
+                navigate("/login");
             }
         }
         init();
